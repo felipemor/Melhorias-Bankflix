@@ -1,0 +1,96 @@
+<div class="row">
+    <div class="col-12" *ngIf="obtendoMinhaConta">
+        <mat-progress-bar mode="indeterminate">
+        </mat-progress-bar>
+    </div>
+    <div class="col-lg-4 col-md-4 col-sm-12" *ngIf="minhaConta">
+        <mat-card>
+            <mat-card-header>
+                <mat-card-title>Ajuda</mat-card-title>
+                <mat-card-subtitle>Está com problemas?</mat-card-subtitle>
+            </mat-card-header>
+            <mat-card-content class="text-center">
+                <h2>Entre em contato</h2>
+            </mat-card-content>
+            <mat-card-actions class="text-center">
+                <button mat-stroked-button color="accent" style="width: 100%;">
+                    <mat-icon>live_help</mat-icon>
+                    Solicitar suporte
+                </button>
+            </mat-card-actions>
+        </mat-card>
+    </div>
+    <div class="col-lg-4 col-md-4 col-sm-12" *ngIf="minhaConta">
+        <mat-card>
+            <mat-card-header>
+                <mat-card-title>Conta</mat-card-title>
+                <mat-card-subtitle>Seu número de conta</mat-card-subtitle>
+            </mat-card-header>
+            <mat-card-content class="text-right">
+                <h2>{{ minhaConta.numero }}-{{ minhaConta.digitoVerificador }}</h2>
+            </mat-card-content>
+            <mat-card-actions class="text-center">
+                <a mat-stroked-button color="accent" style="width: 100%;" [routerLink]="[ 'transferencias' ]">
+                    <mat-icon>attach_money</mat-icon>
+                    Realizar transferência
+                </a>
+            </mat-card-actions>
+        </mat-card>
+    </div>
+    <div class="col-lg-4 col-md-4 col-sm-12" *ngIf="minhaConta">
+        <mat-card>
+            <mat-card-header>
+                <mat-card-title>Saldo atual</mat-card-title>
+                <mat-card-subtitle>Valor disponível na sua conta</mat-card-subtitle>
+            </mat-card-header>
+            <mat-card-content class="text-right">
+                <h2>{{ minhaConta.saldoDisponivelEmReais | currency: 'BRL' }}</h2>
+            </mat-card-content>
+            <mat-card-actions class="text-center">
+                <a mat-stroked-button color="accent" style="width: 100%;" [routerLink]="[ 'depositos' ]">
+                    <mat-icon>account_balance</mat-icon>
+                    Realizar depósito
+                </a>
+            </mat-card-actions>
+        </mat-card>
+    </div>
+</div>
+<br>
+<br>
+<div class="row" *ngIf="minhasMovimentacoes.length">
+    <div class="col-12 text-left">
+        <h2>Extrato</h2>
+    </div>
+    <div class="col-12">
+        <mat-accordion>
+            <mat-expansion-panel *ngFor="let movimentacao of minhasMovimentacoes">
+                <mat-expansion-panel-header>
+                    <mat-panel-description>
+                        <table style="width: 100%;">
+                            <tr [class]="obterFormatacaoTipo(movimentacao.tipo).cor">
+                                <td class="text-left">
+                                    {{ obterTipoVinculoTexto(movimentacao.vinculo.tipo) }}
+                                </td>
+                                <td class="text-right">
+                                    {{ obterFormatacaoTipo(movimentacao.tipo).operacao }}
+                                    {{ movimentacao.valorEmReais | currency: 'BRL' }}
+                                </td>
+                            </tr>
+                        </table>
+                    </mat-panel-description>
+                </mat-expansion-panel-header>
+                <div class="row no-gutters">
+                    <div class="col-lg-3 col-md-3 col-sm-12 text-left"><b>Conta: </b>
+                        {{ movimentacao.conta.numero }}-{{ movimentacao.conta.digitoVerificador }}</div>
+                    <div class="col-lg-3 col-md-3 col-sm-12 text-left"><b>Cliente: </b>
+                        {{ movimentacao.conta.cliente.nomeCompleto }}</div>
+                    <div class="col-lg-3 col-md-3 col-sm-12 text-left"><b>CPF: </b> {{ movimentacao.conta.cliente.cpf }}
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-12 text-right">
+                        {{ movimentacao.dataHoraCriacao | date: 'dd/MM/yyyy HH:mm' }}
+                    </div>
+                </div>
+            </mat-expansion-panel>
+        </mat-accordion>
+    </div>
+</div>

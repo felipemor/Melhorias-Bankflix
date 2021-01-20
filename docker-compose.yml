@@ -1,0 +1,44 @@
+version: '3.7'
+
+services:
+  client:
+    build: clients/angular
+    depends_on:
+      - api
+    ports:
+      - 5001:80
+    networks:
+      - bankflix
+
+  api:
+    build: server
+    depends_on:
+      - mongo
+      - rabbitmq
+    ports:
+    - 5002:80
+    networks:
+      - bankflix
+    environment:
+      - "mongoConnection__server=mongodb://mongo:27017/bankflix"
+      - "rabbitmq__uri=amqp://guest:guest@rabbitmq:5672/rabbitmq-bankflix"
+
+  mongo:
+    image: mongo:latest
+    ports:
+    - 27018:27017
+    networks:
+      - bankflix
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    ports:
+    - 5673:5672
+    - 15673:15672
+    networks:
+      - bankflix
+    environment:
+      RABBITMQ_DEFAULT_VHOST: rabbitmq-bankflix
+
+networks:
+  bankflix:

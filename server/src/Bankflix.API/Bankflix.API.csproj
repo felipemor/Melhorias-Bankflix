@@ -1,0 +1,25 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="6.0.0" />
+    <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="7.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.0.0" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="3.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Agencia.Domain\Agencia.Domain.csproj" />
+    <ProjectReference Include="..\Agencia.Infra.CrossCutting\Agencia.Infra.CrossCutting.csproj" />
+    <ProjectReference Include="..\Clientes.Commands\Clientes.Commands.csproj" />
+    <ProjectReference Include="..\Clientes.Domain\Clientes.Domain.csproj" />
+    <ProjectReference Include="..\Clientes.Infra.CrossCutting\Clientes.Infra.CrossCutting.csproj" />
+    <ProjectReference Include="..\Movimentacoes.Commands\Movimentacoes.Commands.csproj" />
+    <ProjectReference Include="..\Movimentacoes.Domain\Movimentacoes.Domain.csproj" />
+    <ProjectReference Include="..\Movimentacoes.Infra.CrossCutting\Movimentacoes.Infra.CrossCutting.csproj" />
+  </ItemGroup>
+
+</Project>
